@@ -3,8 +3,7 @@ require 'httparty'
 
 # Scraper class
 class Scraper
-  attr_accessor :arr
-  attr_reader :news
+  attr_reader :arr, :news
 
   def initialize(url)
     @arr = []
@@ -14,6 +13,8 @@ class Scraper
     scraper
     system('clear')
   end
+
+  private
 
   def scraper
     @news.each do |article|
@@ -26,5 +27,35 @@ class Scraper
       @arr.push(item)
     end
     @arr
+  end
+
+  def print1(title, date)
+    puts "Title: #{title}"
+    puts "Date: #{date}"
+  end
+
+  def print2(levels)
+    puts "Urls:\n  Level 1: #{levels[0]['href']}"
+    puts "  Level 2: #{levels[1]['href']}"
+    puts "  Level 3: #{levels[2]['href']}\n\n"
+  end
+
+  def condition(date, summary)
+    if date == summary[0..15]
+      puts "Summary: #{summary[17..-1]}"
+    else
+      puts "Summary: #{summary}"
+    end
+  end
+
+  public
+
+  def print_articles
+    @arr.each do |article|
+      print1(article[:title], article[:date])
+      condition(article[:date], article[:summary])
+      print2(article[:urls])
+      sleep(1)
+    end
   end
 end

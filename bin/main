@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/scraper'
+
+count = 1
+loop do
+  url = 'https://www.newsinlevels.com/'
+  if count > 1 then url = "#{url}page/#{count}/" end
+  items = Scraper.new(url)
+  items.print_articles
+  print 'Enter n to see more articles, b to go back, any key to quit: '
+  selection = gets.chomp
+  case selection
+  when 'n'
+    count += 1
+  when 'b'
+    count -= 1
+  else
+    break
+  end
+end
