@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 require 'httparty'
 
@@ -51,7 +53,8 @@ class Scraper
   public
 
   def print_articles
-    @arr.each do |article|
+    @arr.each_with_index do |article, i|
+      print "#{i + 1}: "
       print1(article[:title], article[:date])
       condition(article[:date], article[:summary])
       print2(article[:urls])

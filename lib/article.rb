@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 require 'httparty'
 
@@ -9,13 +11,13 @@ class Article
     @unparsed_page = HTTParty.get(url)
     @parsed_page = Nokogiri::HTML(@unparsed_page)
     @title = @parsed_page.css('.article-title').css('h2').text
-    @content = @parsed_page.css('.nContent').css('p')
+    @content = @parsed_page.css('#nContent').text
+    system('clear')
   end
 
   def print_article
-    puts "#{@title}\n"
-    content.each do |i|
-      puts "#{i}\n"
-    end
+    puts "#{@title}\n\n#{@content.strip}"
+    gets
+    system('clear')
   end
 end

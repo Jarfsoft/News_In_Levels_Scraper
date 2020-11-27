@@ -1,14 +1,43 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require_relative '../lib/scraper'
+require_relative '../lib/article'
+
+def article_selected(article)
+  system('clear')
+  puts "#{article[:title]}\n"
+  (0..2).each do |i|
+    puts "Level #{i + 1}: #{article[:urls][i]['href']}"
+  end
+  print "\n\nEnter the number of level or any key to go back: "
+  sel = gets.chomp
+  decision(sel)
+end
+
+def decision(sel)
+  case sel
+  when '1'
+    pri(article[:urls][0]['href'])
+  when '2'
+    pri(article[:urls][1]['href'])
+  when '3'
+    pri(article[:urls][2]['href'])
+  end
+end
+
+def pri(obj)
+  news = Article.new(obj)
+  news.print_article
+end
 
 count = 1
 loop do
   url = 'https://www.newsinlevels.com/'
-  if count > 1 then url = "#{url}page/#{count}/" end
+  url = "#{url}page/#{count}/" if count > 1
   items = Scraper.new(url)
   items.print_articles
-  print 'Enter n to see more articles, b to go back, any key to quit: '
+  print 'Enter the number of article to select, n to see more articles, b to go back, any key to quit: '
   selection = gets.chomp
   case selection
   when 'n'
@@ -16,6 +45,7 @@ loop do
   when 'b'
     count -= 1
   else
-    break
+    selection = selection.to_i
+    selection.positive? ? article_selected(items.arr[selection.to_i - 1]) : break
   end
 end
