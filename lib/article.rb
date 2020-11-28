@@ -14,8 +14,6 @@ class Article
   end
 
   def print_article
-    puts "#{@title}\n\n#{@content.strip}"
-    gets
-    system('clear')
+    "#{@title}\n\n#{@content.strip}"
   end
 end

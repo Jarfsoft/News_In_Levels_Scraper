@@ -10,24 +10,30 @@ def article_selected(article)
   end
   print "\n\nEnter the number of level or any key to go back: "
   sel = gets.chomp
-  decision(sel)
+  decision(sel, article[:urls])
 end
 
-def decision(sel)
+def decision(sel, i)
   case sel
   when '1'
-    pri(article[:urls][0]['href'])
+    pri(i[0]['href'])
   when '2'
-    pri(article[:urls][1]['href'])
+    pri(i[1]['href'])
   when '3'
-    pri(article[:urls][2]['href'])
+    pri(i[2]['href'])
   end
 end
 
 def pri(obj)
   news = Article.new(obj)
-  news.print_article
+  puts news.print_article
+  gets
+  system('clear')
 end
+
+puts 'Welcome to News in Levels page scraper!'
+puts 'Press enter to load articles.'
+gets
 
 count = 1
 loop do
@@ -35,7 +41,9 @@ loop do
   count = 1 if count.zero?
   url = "#{url}page/#{count}/" if count > 1
   items = Scraper.new(url)
-  items.print_articles
+  items.arr.each_with_index do |article, i|
+    puts items.print_article(article, i)
+  end
   print 'Enter the number of article to select, n to see more articles, b to go back, any key to quit: '
   selection = gets.chomp
   case selection

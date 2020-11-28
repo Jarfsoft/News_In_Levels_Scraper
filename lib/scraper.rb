@@ -30,32 +30,32 @@ class Scraper
   end
 
   def print1(title, date)
-    puts "Title: #{title}\nDate: #{date}"
+    "Title: #{title}\nDate: #{date}"
   end
 
   def print2(levels)
-    puts "Urls:\n  Level 1: #{levels[0]['href']}"
-    puts "  Level 2: #{levels[1]['href']}"
-    puts "  Level 3: #{levels[2]['href']}\n\n"
+    send = "\nUrls:\n  Level 1: #{levels[0]['href']}\n"
+    send += "  Level 2: #{levels[1]['href']}\n"
+    send += "  Level 3: #{levels[2]['href']}\n\n\n"
+    send
   end
 
   def condition(date, summary)
     if date == summary[0..15]
-      puts "Summary: #{summary[17..-1]}"
+      "Summary: #{summary[17..-1]}"
     else
-      puts "Summary: #{summary}"
+      "Summary: #{summary}"
     end
   end
 
   public
 
-  def print_articles
-    @arr.each_with_index do |article, i|
-      print "#{i + 1}: "
-      print1(article[:title], article[:date])
-      condition(article[:date], article[:summary])
-      print2(article[:urls])
-      sleep(1)
-    end
+  def print_article(article, item)
+    send = "#{item + 1}: "
+    send += print1(article[:title], article[:date])
+    send += condition(article[:date], article[:summary])
+    send += print2(article[:urls])
+    sleep(1)
+    send
   end
 end
