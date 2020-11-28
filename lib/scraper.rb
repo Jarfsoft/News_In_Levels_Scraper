@@ -32,8 +32,7 @@ class Scraper
   end
 
   def print1(title, date)
-    puts "Title: #{title}"
-    puts "Date: #{date}"
+    puts "Title: #{title}\nDate: #{date}"
   end
 
   def print2(levels)
