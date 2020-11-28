@@ -46,7 +46,7 @@ Gems:
 
 ## Author
 
-👤 **Julian Ramos**
+👤 **Juan Andres Raudales Flores**
 
 - GitHub: [@Jarfsoft](https://github.com/Jarfsoft)
 - Twitter: [@Jarfsoft](https://twitter.com/Jarfsoft)
