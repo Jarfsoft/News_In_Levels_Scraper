@@ -1,4 +1,4 @@
-# Ruby Scraper Capstone
+# News_In_Levels_Scraper
 
  In this project, I created a scraper script that obtains the newest articles from `hhttps://www.newsinlevels.com/` and shows the data in the terminal. It lets the user to choose one of the articles and then the reading level and finally it prints the article.
  I think it is a very fun way to browse the articles in the page.
