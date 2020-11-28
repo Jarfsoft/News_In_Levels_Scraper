@@ -1,0 +1,58 @@
+#!/usr/bin/env ruby
+require_relative '../lib/scraper'
+require_relative '../lib/article'
+
+def article_selected(article)
+  system('clear')
+  puts "#{article[:title]}\n"
+  (0..2).each do |i|
+    puts "Level #{i + 1}: #{article[:urls][i]['href']}"
+  end
+  print "\n\nEnter the number of level or any key to go back: "
+  sel = gets.chomp
+  decision(sel, article[:urls])
+end
+
+def decision(sel, item)
+  case sel
+  when '1'
+    pri(item[0]['href'])
+  when '2'
+    pri(item[1]['href'])
+  when '3'
+    pri(item[2]['href'])
+  end
+end
+
+def pri(obj)
+  news = Article.new(obj)
+  puts news.print_article
+  gets
+  system('clear')
+end
+
+puts 'Welcome to News in Levels page scraper!'
+puts 'Press enter to load articles.'
+gets
+
+count = 1
+loop do
+  url = 'https://www.newsinlevels.com/'
+  count = 1 if count.zero?
+  url = "#{url}page/#{count}/" if count > 1
+  items = Scraper.new(url)
+  items.arr.each_with_index do |article, i|
+    puts items.print_article(article, i)
+  end
+  print 'Enter the number of article to select, n to see more articles, b to go back, any key to quit: '
+  selection = gets.chomp
+  case selection
+  when 'n'
+    count += 1
+  when 'b'
+    count -= 1
+  else
+    selection = selection.to_i
+    selection.positive? ? article_selected(items.arr[selection.to_i - 1]) : break
+  end
+end
