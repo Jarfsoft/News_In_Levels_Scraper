@@ -13,14 +13,14 @@ def article_selected(article)
   decision(sel, article[:urls])
 end
 
-def decision(sel, i)
+def decision(sel, item)
   case sel
   when '1'
-    pri(i[0]['href'])
+    pri(item[0]['href'])
   when '2'
-    pri(i[1]['href'])
+    pri(item[1]['href'])
   when '3'
-    pri(i[2]['href'])
+    pri(item[2]['href'])
   end
 end
 
